@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +7,20 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
+  <script>
+    (function (doc, win) {
+      // 设置当前设置UI图的总宽度，直接看UI给的设计的宽度就行，固定的
+      var uiWidth = 1920
+      var docEl = doc.documentElement
+      var recalc = function () {
+        // 乘以一个比例，作为rem的值，实现rem的值随着设别宽度的不同而不同
+        var clientWidth = docEl.clientWidth || 0
+        docEl.style.fontSize = 100 * (clientWidth / uiWidth) + 'px'
+      }
+      recalc() // 先自动触发一下
+      win.addEventListener('resize', recalc, false) // 添加页面监听事件
+    })(document, window)
+  </script>
   <body>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>

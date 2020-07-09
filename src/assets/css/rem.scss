@@ -1,0 +1,18 @@
+// phoneSet.scss 文件
+$divisor: 100; // 需要除以的除数因子(js中的因数)
+
+// 去掉单位 把传入的带单位的值的单位去掉
+@function clearUnit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+  @return $number;
+}
+
+// 传过来一个带单位的值,比如1px,返回固定rem单位的值,比如3rem
+@function rem($numAndUnit) {
+  @if not unitless($numAndUnit) {
+    $numAndUnit: clearUnit($numAndUnit);
+  }
+  @return ($numAndUnit / $divisor) * 1rem;
+}
